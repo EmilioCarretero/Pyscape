@@ -1,6 +1,6 @@
 import random
-from english_words import get_english_words_set
-from nltk.corpus import words
+#from english_words import get_english_words_set
+#from nltk.corpus import words
 
 def find_random_word(dictionary, minimum, maximum):
 	word = ""
