@@ -33,10 +33,11 @@ def find_words(dictionary, letters):
 def create_table(words):
 	size = int((len(words[0])+2)*2)
 	table = [[' ' for i in range(size)] for j in range(size)]
-	#Attempt to insert each word and store
+	#Attempt to insert each word
 	words_on_table = []
 	for word in words:
 		word_on_table = insert_word(table, word)
+		#Store in list of words on the table if word was successfully inserted into the table
 		if word_on_table != None:
 			words_on_table.append(word_on_table)
 	return table, words_on_table
@@ -116,22 +117,27 @@ def insert_word(table, word):
 				y = y + 1
 			else:
 				x = x + 1
-		#Return the word, the most centered possible placement of the word, and direction
+		#Return the word, the start position of the word, and the direction if word was successfully inserted into table
 		return word, most_centered, direction
 
 def print_board(table, correct_words):
+	#Loop through every character on board
 	for i in range(len(table)):
 		for j in range(len(table[i])):
+			#Assume character is space and no match is found
 			char = ' '
 			match = False
+			#Check every correctly guessed word
 			for word in correct_words:
 				x, y = word[1]
+				#If current character belongs to a correctly guessed word indicate a match
 				if word[2]:
 					if (j >= y) and (j <= y+len(word[0])) and (i == x):
 						match = True
 				else:
 					if (i >= x) and (i <= x+len(word[0])) and (j == y):
 						match = True
+			#Print the character if a match was found, else print a square for every non-space character
 			if match:
 				char = table[i][j]
 			elif table[i][j] != ' ':
@@ -155,7 +161,7 @@ def print_letters(letters):
 	print("\n")
 
 def by_length(w):
-		return len(w)
+	return len(w)
 
 def get_difficulty():
 	difficulty_text = "Select difficulty:\n\t1) Easy \n\t2) Normal\n\t3) Hard\nOr type 'quit' to exit program.\n"
