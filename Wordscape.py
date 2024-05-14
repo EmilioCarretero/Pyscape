@@ -31,7 +31,7 @@ def find_words(dictionary, letters):
 	return words
 
 def create_table(words):
-	size = int((len(words[0])+2)*2)
+	size = int((len(words[0])*2)+len(words)/10)
 	table = [[' ' for i in range(size)] for j in range(size)]
 	#Attempt to insert each word
 	words_on_table = []
@@ -40,7 +40,37 @@ def create_table(words):
 		#Store in list of words on the table if word was successfully inserted into the table
 		if word_on_table != None:
 			words_on_table.append(word_on_table)
-	return table, words_on_table
+	#Find actual size
+	actual_size = [[0 for i in range(2)] for j in range(2)]
+	#Find top character
+	found = False
+	for i in range(len(table)):
+		for j in range(len(table[0])):
+			if not found and table[i][j] != ' ':
+				actual_size[0][0] = i-1
+				found = True
+	#Find left-most character
+	found = False
+	for j in range(len(table[0])):
+		for i in range(len(table)):
+			if not found and table[i][j] != ' ':
+				actual_size[0][1] = j-1
+				found = True
+	#Find bottom character
+	found = False
+	for i in range(len(table)):
+		for j in range(len(table[0])):
+			if not found and table[len(table)-i-1][j] != ' ':
+				actual_size[1][0] = len(table)-i
+				found = True
+	#Find right-most character
+	found = False
+	for j in range(len(table[0])):
+		for i in range(len(table)):
+			if not found and table[i][len(table[0])-j-1] != ' ':
+				actual_size[1][1] = len(table[0])-j
+				found = True
+	return table, actual_size, words_on_table
 
 def insert_word(table, word):
 	center = (int(len(table)/2), int(len(table[0])/2))
@@ -120,10 +150,12 @@ def insert_word(table, word):
 		#Return the word, the start position of the word, and the direction if word was successfully inserted into table
 		return word, most_centered, direction
 
-def print_board(table, correct_words):
+def print_board(table, actual_size, correct_words):
+	print("")
 	#Loop through every character on board
-	for i in range(len(table)):
-		for j in range(len(table[i])):
+	for i in range(actual_size[0][0], actual_size[1][0]):
+		print("\t", end=" ")
+		for j in range(actual_size[0][1], actual_size[1][1]):
 			#Assume character is space and no match is found
 			char = ' '
 			match = False
@@ -145,6 +177,7 @@ def print_board(table, correct_words):
 			#char = table[i][j]
 			print(char, end=" ")
 		print("")
+	print("")
 
 def scramble(letters):
 	scrambled = ""
@@ -196,11 +229,11 @@ while minimum_length != 0 and maximum_length != 0:
 	letters = find_random_word(dictionary, minimum_length, maximum_length)
 	all_words = find_words(dictionary, letters)
 	all_words.sort(reverse=True, key=by_length)
-	table, words_on_table = create_table(all_words)
+	table, actual_size, words_on_table = create_table(all_words)
 	already_guessed = []
 	correct_words = []
 	#Begin game
-	print_board(table, correct_words)
+	print_board(table, actual_size, correct_words)
 	print_letters(scramble(letters))
 	#for words in words_on_table:
 	#	print(words[0], end=", ")
@@ -216,7 +249,7 @@ while minimum_length != 0 and maximum_length != 0:
 				words_on_table.remove(word)
 				correct_words.append(word)
 				already_guessed.append(guess)
-				print_board(table, correct_words)
+				print_board(table, actual_size, correct_words)
 				print_letters(scramble(letters))
 				print(guess + " is correct!")
 		#If incorrect guess, print appropriate message
