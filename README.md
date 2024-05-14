@@ -22,7 +22,7 @@ Wordlist is an extenstion of smallwordlist, and contains many uncommon words whi
   pip install nltk.corpus
   ```
 
-I find these dictionaries have far too many uncommon words, which makes then very difficult to play with. However, they do create some very large and cool looking boards.
+I find these dictionaries have far too many uncommon words, which makes then very difficult to play with. However, they do create some very large and cool boards.
 
 ## Inspiration
   This project was inspired by my mom, who is on level 2504 on Wordscape. I thought it would be a fun and technically challenging coding project. I’m currently working on making a more user-friendly display, instead of the terminal.
