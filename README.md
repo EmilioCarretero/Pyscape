@@ -3,6 +3,7 @@
 
 ## Description
 I recreated the mobile game, Wordscape, on python. Using a random English word from a list, the program creates a Scrabble-like table of all the words that can be made up of the letters from the initial random word. Users are then prompted to guess the censored words on the board given the scrambled letters.
+
 ![Here is some sampe output:](Output.png "Sample Output")
   
 ## Instructions
