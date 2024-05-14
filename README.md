@@ -9,7 +9,7 @@ I recreated the mobile game, Wordscape, on python. Using a random English word f
 ## Instructions
 You can use one of the lists of words in this repo. I have two: 
   - wordlist.txt that contains 20042 words.
-  - smallwordlist.txt contains <10000 words.
+  - smallwordlist.txt contains 9124 words.
 
 Wordlist is an extenstion of smallwordlist, and contains many uncommon words which makes it too hard. Smallwordlist has too few words, and limits creativity. I've been searching for a word list with a balance of the two, but have been unsuccessful so far, se feel free to make one yourself. I also have a few dictionarys commented out; they require the following pip install:
   
